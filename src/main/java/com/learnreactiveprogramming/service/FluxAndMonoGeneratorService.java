@@ -126,6 +126,28 @@ public class FluxAndMonoGeneratorService {
                 .transform(filterMap)
                 .log();
     }
+
+    /**
+     * Retorna un flujo reactivo (Flux) que emite una secuencia de caracteres
+     * provenientes de nombres procesados. Si no hay elementos después del
+     * filtrado, se emite un valor por defecto.
+     *<p>
+     * Este método aplica una transformación funcional a un Flux de nombres,
+     * convirtiéndolos en mayúsculas, filtrando por longitud y dividiéndolos
+     * en caracteres individuales. Si el flujo resultante está vacío, se emite
+     * un valor predeterminado.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - defaultIfEmpty("default"):
+     *   Si el flujo queda vacío después de aplicar la transformación y el filtrado,
+     *   emite el valor "default" en su lugar. Esto es útil para evitar flujos vacíos
+     *   y proporcionar un fallback en caso de que no haya elementos que cumplan la condición.
+     *
+     * @param stringLength longitud mínima que deben tener los nombres para ser incluidos en el flujo.
+     * @return un Flux que emite los caracteres individuales de los nombres procesados o
+     *         el valor "default" si el flujo queda vacío.
+     */
     public Flux<String> namesFluxTransformDefaultEmpty(int stringLength) {
 
         UnaryOperator<Flux<String>> filterMap = names -> names
