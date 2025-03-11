@@ -6,6 +6,7 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import java.util.function.UnaryOperator;
 
 public class FluxAndMonoGeneratorService {
 
@@ -422,12 +423,32 @@ public class FluxAndMonoGeneratorService {
 
         return Flux.concat(abcFlux, defFlux).log();
     }
+
+    /**
+     * Retorna un flujo reactivo (Flux) que emite una secuencia de cadenas,
+     * concatenando dos flujos de manera secuencial utilizando un operador específico.
+     *<p>
+     * Este método crea dos Flujos (`abcFlux` y `defFlux`), y los concatena
+     * utilizando el operador `concatWith`, lo que asegura que el segundo flujo
+     * se emita solo después de que el primero haya completado su emisión.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - concatWith(defFlux):
+     *   El operador `concatWith` se utiliza para concatenar el flujo actual con otro
+     *   flujo especificado como argumento. Emite los elementos del flujo actual primero,
+     *   y luego pasa a emitir los elementos del flujo proporcionado en el argumento,
+     *   manteniendo el orden secuencial.
+     *
+     * @return un Flux que emite los elementos concatenados de los dos flujos en orden secuencial.
+     */
     public Flux<String> fluxConcatWith(){
         Flux<String> abcFlux = Flux.just("A","B","C");
         Flux<String> defFlux = Flux.just("D","E","F");
 
         return abcFlux.concatWith(defFlux).log();
     }
+
     private Mono<List<String>> splitStringMono(String s) {
         var charArray = s.split("");
         return Mono.just(List.of(charArray));
