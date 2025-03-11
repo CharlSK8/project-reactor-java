@@ -257,6 +257,30 @@ public class FluxAndMonoGeneratorService {
                 .log();
     }
 
+    /**
+     * Retorna un mono reactivo (Mono) que emite un único valor de tipo String,
+     * después de haberlo transformado y filtrado.
+     *<p>
+     * Este método crea un Mono con el valor "mono", lo transforma a mayúsculas
+     * y luego filtra si la longitud del nombre es mayor que 3.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - Mono.just("mono"):
+     *   Crea un Mono que emite un único valor ("mono"). Esta es la forma básica
+     *   de crear un Mono con un valor específico.
+     *<p>
+     * - map(String::toUpperCase):
+     *   Aplica una transformación sincrónica al valor emitido por el Mono,
+     *   convirtiendo el valor a mayúsculas.
+     *<p>
+     * - filter(name -> name.length() > 3):
+     *   Filtra el valor emitido por el Mono, permitiendo su paso solo si cumple
+     *   con la condición de que la longitud del nombre es mayor que 3. Si no
+     *   cumple la condición, el Mono no emite ningún valor.
+     *
+     * @return un Mono que emite el valor transformado o nada si no cumple con el filtro.
+     */
     public Mono<String> nameMono(){
         return Mono.just("mono")
                 .map(String::toUpperCase)
