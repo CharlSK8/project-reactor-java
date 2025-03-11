@@ -422,6 +422,12 @@ public class FluxAndMonoGeneratorService {
 
         return Flux.concat(abcFlux, defFlux).log();
     }
+    public Flux<String> fluxConcatWith(){
+        Flux<String> abcFlux = Flux.just("A","B","C");
+        Flux<String> defFlux = Flux.just("D","E","F");
+
+        return abcFlux.concatWith(defFlux).log();
+    }
     private Mono<List<String>> splitStringMono(String s) {
         var charArray = s.split("");
         return Mono.just(List.of(charArray));
