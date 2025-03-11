@@ -341,6 +341,27 @@ public class FluxAndMonoGeneratorService {
                 .switchIfEmpty(Mono.just("default"))
                 .log();
     }
+
+    /**
+     * Retorna un mono reactivo (Mono) que emite una lista de cadenas,
+     * aplicando una transformación, un filtro y luego descomponiendo el valor en
+     * múltiples elementos en un flujo asíncrono.
+     *<p>
+     * Este método crea un Mono con el valor "mono", lo transforma a mayúsculas,
+     * filtra según la longitud del nombre, y luego descompone el nombre en
+     * múltiples elementos utilizando un flujo reactivo.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - flatMap(this::splitStringMono):
+     *   Similar a `map`, pero con la diferencia de que `flatMap` espera un Mono o Flux
+     *   como resultado. En este caso, descompone el valor en una lista de cadenas
+     *   de manera asíncrona, emitiendo los elementos contenidos en el Mono retornado por
+     *   el método `splitStringMono`.
+     *
+     * @param stringLength longitud mínima que debe tener el nombre para ser incluido en el flujo.
+     * @return un Mono que emite una lista de cadenas resultantes de descomponer el nombre original.
+     */
     public Mono<List<String>> nameMonoFlatMap(int stringLength){
         return Mono.just("mono")
                 .map(String::toUpperCase)
