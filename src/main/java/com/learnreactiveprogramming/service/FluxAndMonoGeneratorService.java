@@ -197,6 +197,29 @@ public class FluxAndMonoGeneratorService {
                 .switchIfEmpty(defaultFlux)
                 .log();
     }
+
+
+    /**
+     * Retorna un flujo reactivo (Flux) que emite una secuencia de caracteres
+     * provenientes de nombres procesados, introduciendo un retraso en la
+     * transformación de cada elemento.
+     *<p>
+     * Este método convierte los nombres en mayúsculas, los filtra por longitud
+     * y luego los descompone en caracteres individuales utilizando un método
+     * que introduce un retraso en la emisión de cada carácter.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - flatMap(this::splitStringWithDelay):
+     *   Similar a `flatMap`, pero en este caso, cada nombre es transformado
+     *   asíncronamente utilizando `splitStringWithDelay`, lo que puede generar
+     *   una ejecución no secuencial de los elementos. Esto es útil cuando cada
+     *   transformación implica una operación asíncrona, como llamadas a bases
+     *   de datos o servicios externos.
+     *
+     * @param stringLength longitud mínima que deben tener los nombres para ser incluidos en el flujo.
+     * @return un Flux que emite los caracteres individuales de los nombres procesados con un retraso.
+     */
     public Flux<String> namesFluxFlatMapWithDelay(int stringLength) {
         return Flux.fromIterable(List.of("adam", "anna", "jack", "jenny"))
                 .map(String::toUpperCase)
