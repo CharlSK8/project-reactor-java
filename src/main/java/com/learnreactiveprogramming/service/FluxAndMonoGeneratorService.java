@@ -96,6 +96,24 @@ public class FluxAndMonoGeneratorService {
                 .log();
     }
 
+    /**
+     * Retorna un flujo reactivo (Flux) que emite una secuencia de caracteres
+     * provenientes de nombres procesados.
+     *<p>
+     * Este método utiliza una transformación funcional para aplicar una serie
+     * de operaciones a un Flux de nombres, convirtiéndolos en mayúsculas,
+     * filtrando por longitud y dividiéndolos en caracteres individuales.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - transform(filterMap):
+     *   Aplica una función de transformación {@link UnaryOperator}
+     *   al flujo de datos. Esto permite reutilizar la lógica de
+     *   procesamiento en otros lugares del código y mantener el código más modular.
+     *
+     * @param stringLength longitud mínima que deben tener los nombres para ser incluidos en el flujo.
+     * @return un Flux que emite los caracteres individuales de los nombres procesados.
+     */
     public Flux<String> namesFluxTransform(int stringLength) {
 
         //Esto es útil si se requiere utilizar esta interface functional en otras partes del código
