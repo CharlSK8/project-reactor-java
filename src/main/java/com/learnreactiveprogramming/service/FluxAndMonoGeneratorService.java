@@ -398,6 +398,24 @@ public class FluxAndMonoGeneratorService {
                 .log();
     }
 
+    /**
+     * Retorna un flujo reactivo (Flux) que emite una secuencia de cadenas,
+     * concatenando dos flujos de manera secuencial.
+     *<p>
+     * Este método crea dos Flujos (`abcFlux` y `defFlux`), y los concatena
+     * utilizando el operador `concat`, asegurando que el segundo flujo se emita
+     * solo después de que el primero haya completado su emisión.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - concat(abcFlux, defFlux):
+     *   El operador `concat` toma varios flujos reactivos y los concatena en un solo flujo.
+     *   Emite los elementos del primer flujo de manera secuencial, y luego continúa
+     *   con los elementos del siguiente flujo. Este operador garantiza que los flujos
+     *   se emitan en el orden en que son proporcionados.
+     *
+     * @return un Flux que emite los elementos concatenados de los dos flujos en orden secuencial.
+     */
     public Flux<String> fluxConcat(){
         Flux<String> abcFlux = Flux.just("A","B","C");
         Flux<String> defFlux = Flux.just("D","E","F");
