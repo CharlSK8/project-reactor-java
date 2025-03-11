@@ -70,6 +70,24 @@ public class FluxAndMonoGeneratorService {
                 .log();
     }
 
+    /**
+     * Retorna un flujo reactivo (Flux) que emite una secuencia de caracteres
+     * provenientes de nombres procesados.
+     *<p>
+     * Este método parte de una lista de nombres, los convierte a mayúsculas,
+     * filtra aquellos con una longitud mayor al valor proporcionado y luego
+     * divide cada nombre en caracteres individuales utilizando un subflujo.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - flatMap(this::splitString):
+     *   Transforma cada nombre en un nuevo flujo de caracteres individuales.
+     *   A diferencia de map(), que mantiene una correspondencia uno a uno,
+     *   flatMap() descompone cada elemento en múltiples emisiones dentro del mismo flujo.
+     *
+     * @param stringLength longitud mínima que deben tener los nombres para ser incluidos en el flujo.
+     * @return un Flux que emite los caracteres individuales de los nombres procesados.
+     */
     public Flux<String> namesFluxFlatMap(int stringLength) {
         return Flux.fromIterable(List.of("adam", "anna", "jack", "jenny"))
                 .map(String::toUpperCase)
