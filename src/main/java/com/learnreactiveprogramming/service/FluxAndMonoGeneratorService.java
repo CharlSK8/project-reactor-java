@@ -313,6 +313,13 @@ public class FluxAndMonoGeneratorService {
                 .defaultIfEmpty("default")
                 .log();
     }
+    public Mono<String> nameMonoSwitchIfEmpty(){
+        return Mono.just("mono")
+                .map(String::toUpperCase)
+                .filter(name -> name.length()>6)
+                .switchIfEmpty(Mono.just("default"))
+                .log();
+    }
     public Mono<List<String>> nameMonoFlatMap(int stringLength){
         return Mono.just("mono")
                 .map(String::toUpperCase)
