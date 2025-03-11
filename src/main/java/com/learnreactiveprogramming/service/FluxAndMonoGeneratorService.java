@@ -306,6 +306,13 @@ public class FluxAndMonoGeneratorService {
      * @return un Mono que emite el valor transformado si cumple el filtro,
      *         o un valor por defecto si no lo cumple.
      */
+    public Mono<String> nameMonoDefaultIsEmpty(){
+        return Mono.just("mono")
+                .map(String::toUpperCase)
+                .filter(name -> name.length()>6)
+                .defaultIfEmpty("default")
+                .log();
+    }
     public Mono<List<String>> nameMonoFlatMap(int stringLength){
         return Mono.just("mono")
                 .map(String::toUpperCase)
