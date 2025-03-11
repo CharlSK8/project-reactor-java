@@ -52,6 +52,18 @@ public class FluxAndMonoGeneratorService {
                 .transform(filterMap)
                 .log();
     }
+    public Flux<String> namesFluxTransformDefaultEmpty(int stringLength) {
+
+        UnaryOperator<Flux<String>> filterMap = names -> names
+                .map(String::toUpperCase)
+                .filter(name -> name.length() > stringLength)
+                .flatMap(this::splitString);
+
+        return Flux.fromIterable(List.of("adam", "anna"))
+                .transform(filterMap)
+                .defaultIfEmpty("default")
+                .log();
+    }
     public Flux<String> namesFluxFlatMapWithDelay(int stringLength) {
         return Flux.fromIterable(List.of("adam", "anna", "jack", "jenny"))
                 .map(String::toUpperCase)
