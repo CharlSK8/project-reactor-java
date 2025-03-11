@@ -40,6 +40,18 @@ public class FluxAndMonoGeneratorService {
                 .log();
     }
 
+    public Flux<String> namesFluxTransform(int stringLength) {
+
+        //Esto es útil si se requiere utilizar esta interface functional en otras partes del código
+        UnaryOperator<Flux<String>> filterMap = names -> names
+                .map(String::toUpperCase)
+                .filter(name -> name.length() > stringLength)
+                .flatMap(this::splitString);
+
+        return Flux.fromIterable(List.of("adam", "anna"))
+                .transform(filterMap)
+                .log();
+    }
     public Flux<String> namesFluxFlatMapWithDelay(int stringLength) {
         return Flux.fromIterable(List.of("adam", "anna", "jack", "jenny"))
                 .map(String::toUpperCase)
