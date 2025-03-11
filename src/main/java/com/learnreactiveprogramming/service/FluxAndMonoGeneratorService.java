@@ -313,6 +313,27 @@ public class FluxAndMonoGeneratorService {
                 .defaultIfEmpty("default")
                 .log();
     }
+
+    /**
+     * Retorna un mono reactivo (Mono) que emite un único valor de tipo String,
+     * aplicando una transformación y un filtro. Si el filtro no pasa, se cambia el flujo
+     * por otro Mono con un valor por defecto.
+     *<p>
+     * Este método crea un Mono con el valor "mono", lo transforma a mayúsculas,
+     * luego filtra si la longitud del nombre es mayor que 6. Si no pasa el filtro,
+     * el flujo se redirige a otro Mono que emite un valor predeterminado.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - switchIfEmpty(Mono.just("default")):
+     *   Si el Mono original no emite ningún valor (cuando no pasa el filtro),
+     *   `switchIfEmpty` permite redirigir el flujo hacia otro Mono alternativo
+     *   que emite el valor "default". Esto asegura que el flujo siempre emitirá
+     *   un valor, ya sea el original o uno predeterminado.
+     *
+     * @return un Mono que emite el valor transformado si cumple el filtro,
+     *         o un valor por defecto si no lo cumple.
+     */
     public Mono<String> nameMonoSwitchIfEmpty(){
         return Mono.just("mono")
                 .map(String::toUpperCase)
