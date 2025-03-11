@@ -19,6 +19,23 @@ public class FluxAndMonoGeneratorService {
         fluxAndMonoGeneratorService.namesFluxConcatMap(3).subscribe(System.out::println);
     }
 
+    /**
+     * Retorna un flujo reactivo (Flux) que emite una secuencia de nombres.
+     * <p>
+     * Este método crea un Flux a partir de una lista inmutable de nombres y
+     * registra eventos del flujo para su monitoreo y depuración.
+     * <p>
+     * Explicación de los métodos de Project Reactor utilizados:
+     *<p>
+     * - Flux.fromIterable(List.of(...)):
+     *   Convierte una colección List en un Flux, emitiendo cada elemento de la lista de forma secuencial.
+     *<p>
+     * - log():
+     *   Registra eventos internos del Flux en la consola, como la suscripción,
+     *   las emisiones de datos y la cancelación.
+     *
+     * @return un Flux que emite una secuencia de nombres.
+     */
     public Flux<String> namesFlux() {
         return Flux.fromIterable(List.of("adam", "anna", "jack", "jenny"))
                 .log();
