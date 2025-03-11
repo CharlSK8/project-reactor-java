@@ -228,6 +228,27 @@ public class FluxAndMonoGeneratorService {
                 .log();
     }
 
+    /**
+     * Retorna un flujo reactivo (Flux) que emite una secuencia de caracteres
+     * provenientes de nombres procesados. Cada transformación se realiza de
+     * manera secuencial, garantizando el orden de las emisiones.
+     *<p>
+     * Este método convierte los nombres en mayúsculas, los filtra por longitud
+     * y luego los descompone en caracteres individuales, procesándolos en
+     * un orden secuencial utilizando un método con un retraso.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - concatMap(this::splitStringWithDelay):
+     *   Similar a `flatMap`, pero garantiza que los elementos sean procesados
+     *   secuencialmente. Cada nombre es transformado de manera asíncrona, pero el
+     *   procesamiento de cada elemento se realiza en el orden de aparición,
+     *   lo que es útil cuando se requiere mantener la secuencia original.
+     *
+     * @param stringLength longitud mínima que deben tener los nombres para ser incluidos en el flujo.
+     * @return un Flux que emite los caracteres individuales de los nombres procesados con retraso
+     *         y en orden secuencial.
+     */
     public Flux<String> namesFluxConcatMap(int stringLength) {
         return Flux.fromIterable(List.of("adam", "anna"))
                 .map(String::toUpperCase)
