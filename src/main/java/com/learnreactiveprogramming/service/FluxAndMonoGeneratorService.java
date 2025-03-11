@@ -370,6 +370,26 @@ public class FluxAndMonoGeneratorService {
                 .log();
     }
 
+    /**
+     * Retorna un flujo reactivo (Flux) que emite múltiples cadenas de texto,
+     * aplicando una transformación, un filtro y luego descomponiendo el valor en
+     * varios elementos a través de un flujo reactivo.
+     *<p>
+     * Este método crea un Mono con el valor "mono", lo transforma a mayúsculas,
+     * filtra según la longitud del nombre, y luego descompone el nombre en
+     * múltiples elementos utilizando un flujo reactivo.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - flatMapMany(this::splitString):
+     *   Al igual que `flatMap`, pero `flatMapMany` permite que el valor resultante sea un
+     *   `Flux` que emite múltiples elementos. En este caso, el valor se descompone en
+     *   múltiples cadenas a través de un flujo reactivo.
+     *   Esto permite que cada valor emitido sea parte de una secuencia de múltiples elementos.
+     *
+     * @param stringLength longitud mínima que debe tener el nombre para ser incluido en el flujo.
+     * @return un Flux que emite las cadenas descompuestas del valor original.
+     */
     public Flux<String> nameMonoFlatMapMany(int stringLength){
         return Mono.just("mono")
                 .map(String::toUpperCase)
