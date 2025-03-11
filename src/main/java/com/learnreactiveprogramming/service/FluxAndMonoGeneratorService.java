@@ -41,6 +41,27 @@ public class FluxAndMonoGeneratorService {
                 .log();
     }
 
+    /**
+     * Retorna un flujo reactivo (Flux) que emite una secuencia de nombres procesados.
+     *<p>
+     * Este método parte de una lista de nombres, los convierte a mayúsculas,
+     * filtra aquellos con una longitud mayor al valor proporcionado y los transforma
+     * en una nueva representación con su longitud como prefijo.
+     *<p>
+     * Nuevos métodos de Project Reactor utilizados:
+     *<p>
+     * - map(String::toUpperCase):
+     *   Convierte cada nombre a mayúsculas.
+     *<p>
+     * - filter(name -> name.length() > stringLength):
+     *   Filtra los nombres cuya longitud sea mayor que el valor especificado en stringLength.
+     *<p>
+     * - map(name -> name.length() + "-" + name):
+     *   Transforma cada nombre en un nuevo formato donde se antepone su longitud seguida de un guion.
+     *
+     * @param stringLength longitud mínima que deben tener los nombres para ser incluidos en el flujo.
+     * @return un Flux que emite los nombres procesados con su longitud como prefijo.
+     */
     public Flux<String> namesFluxMap(int stringLength) {
         return Flux.fromIterable(List.of("adam", "anna", "jack", "jenny"))
                 .map(String::toUpperCase)
