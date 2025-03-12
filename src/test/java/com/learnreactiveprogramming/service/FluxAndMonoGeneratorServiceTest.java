@@ -5,7 +5,7 @@ import reactor.test.StepVerifier;
 
 import java.util.List;
 
-public class FluxAndMonoGeneratorServiceTest {
+class FluxAndMonoGeneratorServiceTest {
 
     FluxAndMonoGeneratorService fluxAndMonoGeneratorService = new FluxAndMonoGeneratorService();
 
