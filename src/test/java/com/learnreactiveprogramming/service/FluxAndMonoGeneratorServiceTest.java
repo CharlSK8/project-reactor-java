@@ -111,4 +111,15 @@ class FluxAndMonoGeneratorServiceTest {
                 .expectNext("A","D","A","M","A","N","N","A")
                 .verifyComplete();
     }
+
+    @Test
+    void namesFluxTransformDefaultEmpty() {
+        int stringLength = 6;
+
+        var namesFluxTransform = fluxAndMonoGeneratorService.namesFluxTransformDefaultEmpty(stringLength);
+
+        StepVerifier.create(namesFluxTransform)
+                .expectNext("default")
+                .verifyComplete();
+    }
 }
