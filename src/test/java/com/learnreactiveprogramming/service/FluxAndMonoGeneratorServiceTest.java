@@ -34,6 +34,16 @@ class FluxAndMonoGeneratorServiceTest {
     }
 
     @Test
+    void nameMonoDefaultIsEmpty() {
+
+        var nameMono = fluxAndMonoGeneratorService.nameMonoDefaultIsEmpty();
+
+        StepVerifier.create(nameMono)
+                .expectNext("default")
+                .verifyComplete();
+    }
+
+    @Test
     void namesFluxMap() {
         int stringLength = 3;
 
