@@ -152,4 +152,13 @@ class FluxAndMonoGeneratorServiceTest {
                 .expectNext("A","B","C","D","E","F")
                 .verifyComplete();
     }
+
+    @Test
+    void fluxConcatWith() {
+        var fluxConcat = fluxAndMonoGeneratorService.fluxConcatWith();
+
+        StepVerifier.create(fluxConcat)
+                .expectNext("A","B","C","D","E","F")
+                .verifyComplete();
+    }
 }
