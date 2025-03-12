@@ -133,4 +133,13 @@ class FluxAndMonoGeneratorServiceTest {
                 .expectNext("D","E","F","A","U","L","T")
                 .verifyComplete();
     }
+
+    @Test
+    void nameMonoSwitchIfEmpty() {
+        var nameMono = fluxAndMonoGeneratorService.nameMonoSwitchIfEmpty();
+
+        StepVerifier.create(nameMono)
+                .expectNext("default")
+                .verifyComplete();
+    }
 }
