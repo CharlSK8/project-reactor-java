@@ -522,6 +522,24 @@ public class FluxAndMonoGeneratorService {
 
         return abcFlux.mergeWith(defFlux).log();
     }
+
+    /**
+     * Retorna un flujo reactivo (Flux) combinando dos Mono de manera concurrente
+     * usando `mergeWith`.
+     *<p>
+     * Este método crea dos Monos (`aMono` y `bMono`) y los fusiona utilizando `mergeWith`.
+     * A diferencia de `concatWith`, los valores pueden emitirse en paralelo si son
+     * asíncronos, aunque en este caso, al ser valores estáticos, se emiten inmediatamente.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - mergeWith(bMono):
+     *   Permite fusionar el Mono actual con otro Mono o Flux de manera asíncrona,
+     *   emitiendo los valores tan pronto como estén listos. En este caso, se
+     *   transforma en un Flux que contiene ambos valores.
+     *
+     * @return un Flux que emite los valores de ambos Monos sin garantizar el orden.
+     */
     public Flux<String> monoMergeWith(){
         Mono<String> aMono = Mono.just("A");
         Mono<String> bmono = Mono.just("B");
