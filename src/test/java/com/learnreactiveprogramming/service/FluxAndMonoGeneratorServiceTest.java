@@ -188,4 +188,13 @@ class FluxAndMonoGeneratorServiceTest {
                 .expectNext("A","D","B","E","C","F")
                 .verifyComplete();
     }
+
+    @Test
+    void monoMergeWith() {
+        var monoMergeWith = fluxAndMonoGeneratorService.monoMergeWith();
+
+        StepVerifier.create(monoMergeWith)
+                .expectNext("A","B")
+                .verifyComplete();
+    }
 }
