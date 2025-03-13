@@ -449,6 +449,22 @@ public class FluxAndMonoGeneratorService {
         return abcFlux.concatWith(defFlux).log();
     }
 
+    /**
+     * Retorna un flujo reactivo (Flux) concatenando dos Monos de manera secuencial.
+     *<p>
+     * Este método crea dos Monos (`aMono` y `bMono`), y los concatena utilizando
+     * el operador `concatWith`, convirtiéndolos en un `Flux` que emite sus valores
+     * en orden secuencial.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - concatWith(bMono):
+     *   Permite concatenar el `Mono` actual con otro `Mono` o `Flux`,
+     *   convirtiendo ambos en un `Flux` que emite los elementos en orden secuencial.
+     *   Garantiza que el primer `Mono` se complete antes de emitir el segundo.
+     *
+     * @return un Flux que emite los valores de ambos Monos en orden secuencial.
+     */
     public Flux<String> monoConcatWith(){
         var aMono = Mono.just("a");
         var bMono = Mono.just("b");
