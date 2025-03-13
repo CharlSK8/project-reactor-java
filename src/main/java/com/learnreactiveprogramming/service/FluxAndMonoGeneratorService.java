@@ -622,6 +622,21 @@ public class FluxAndMonoGeneratorService {
 
         return abcFlux.zipWith(defFlux, (first, second) -> first + second).log();
     }
+
+    /**
+     * Retorna un Mono que combina dos Monos utilizando `zipWith`.
+     *<p>
+     * Este método toma dos Monos (`aMono` y `bMono`) y los combina en una tupla (`Tuple2`),
+     * de la cual se extraen sus valores para formar un único String concatenado.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - zipWith(bMono):
+     *   Similar a `zip`, pero aplicado sobre una instancia de `Mono`, combinándolo
+     *   con otro `Mono` pasado como argumento.
+     *
+     * @return un Mono que emite la concatenación de los valores de los Monos dados.
+     */
     public Mono<String> monoZipWith(){
         Mono<String> aMono = Mono.just("A");
         Mono<String> bMono = Mono.just("B");
