@@ -599,6 +599,13 @@ public class FluxAndMonoGeneratorService {
 
         return Flux.zip(abcFlux, defFlux, (first, second) -> (first + second).toLowerCase()).log();
     }
+    public Flux<String> fluxZipWith(){
+        Flux<String> abcFlux = Flux.just("A","B","C");
+
+        Flux<String> defFlux = Flux.just("D","E","F");
+
+        return abcFlux.zipWith(defFlux, (first, second) -> first + second).log();
+    }
     private Mono<List<String>> splitStringMono(String s) {
         var charArray = s.split("");
         return Mono.just(List.of(charArray));
