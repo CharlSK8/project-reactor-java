@@ -546,6 +546,26 @@ public class FluxAndMonoGeneratorService {
 
         return aMono.mergeWith(bmono).log();
     }
+
+    /**
+     * Retorna un flujo reactivo (Flux) que combina múltiples flujos de manera secuencial
+     * utilizando `mergeSequential`.
+     *<p>
+     * Este método crea dos Flujos (`abcFlux` y `defFlux`), cada uno con un retraso
+     * diferente en sus emisiones. En lugar de fusionarlos de manera completamente
+     * concurrente (como en `merge`), `mergeSequential` se asegura de que los valores
+     * de cada flujo se emitan en orden, procesando un flujo completamente antes de
+     * pasar al siguiente.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - mergeSequential(abcFlux, defFlux):
+     *   Fusiona múltiples flujos de manera secuencial, es decir, ejecuta el primer
+     *   flujo hasta que se complete y luego comienza con el siguiente, conservando
+     *   el orden de los elementos en cada flujo.
+     *
+     * @return un Flux que emite los valores de los flujos dados en orden secuencial.
+     */
     public Flux<String> fluxMergeSequential(){
         Flux<String> abcFlux = Flux.just("A","B","C")
                 .delayElements(Duration.ofMillis(100));
