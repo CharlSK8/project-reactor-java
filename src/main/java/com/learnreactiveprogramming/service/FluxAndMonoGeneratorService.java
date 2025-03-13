@@ -471,6 +471,23 @@ public class FluxAndMonoGeneratorService {
 
         return aMono.concatWith(bMono).log();
     }
+
+    /**
+     * Retorna un flujo reactivo (Flux) combinando dos flujos de manera concurrente.
+     *<p>
+     * Este método crea dos Flujos (`abcFlux` y `defFlux`), cada uno con un retraso diferente
+     * en sus emisiones, y los fusiona utilizando `Flux.merge`. A diferencia de `concat`,
+     * la combinación ocurre de manera asíncrona, emitiendo los valores tan pronto como
+     * estén disponibles.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - merge(abcFlux, defFlux):
+     *   Fusiona múltiples flujos y emite los elementos en el orden en que estén listos,
+     *   sin mantener la secuencia original de cada flujo. Ideal para procesar eventos en paralelo.
+     *
+     * @return un Flux que emite los valores de ambos flujos a medida que estén disponibles.
+     */
     public Flux<String> fluxMerge(){
         Flux<String> abcFlux = Flux.just("A","B","C")
                 .delayElements(Duration.ofMillis(100));
