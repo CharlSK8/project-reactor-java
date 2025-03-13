@@ -207,4 +207,13 @@ class FluxAndMonoGeneratorServiceTest {
                 .expectNext("A","B","C","D","E","F")
                 .verifyComplete();
     }
+
+    @Test
+    void fluxZip() {
+        var fluxZip = fluxAndMonoGeneratorService.fluxZip();
+
+        StepVerifier.create(fluxZip)
+                .expectNext("ad","be","cf")
+                .verifyComplete();
+    }
 }
