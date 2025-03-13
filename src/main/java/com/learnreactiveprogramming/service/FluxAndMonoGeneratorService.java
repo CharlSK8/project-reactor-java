@@ -546,6 +546,14 @@ public class FluxAndMonoGeneratorService {
 
         return aMono.mergeWith(bmono).log();
     }
+    public Flux<String> fluxMergeSequential(){
+        Flux<String> abcFlux = Flux.just("A","B","C")
+                .delayElements(Duration.ofMillis(100));
+        Flux<String> defFlux = Flux.just("D","E","F")
+                .delayElements(Duration.ofMillis(125));
+
+        return Flux.mergeSequential(abcFlux, defFlux).log();
+    }
     private Mono<List<String>> splitStringMono(String s) {
         var charArray = s.split("");
         return Mono.just(List.of(charArray));
