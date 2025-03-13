@@ -599,6 +599,22 @@ public class FluxAndMonoGeneratorService {
 
         return Flux.zip(abcFlux, defFlux, (first, second) -> (first + second).toLowerCase()).log();
     }
+
+    /**
+     * Retorna un flujo reactivo (Flux) que combina elementos de dos flujos
+     * utilizando `zipWith`.
+     *<p>
+     * Este método toma dos flujos (`abcFlux` y `defFlux`) y los combina en pares,
+     * aplicando una función de combinación a cada par de elementos correspondientes.
+     *<p>
+     * Nuevo método de Project Reactor utilizado:
+     *<p>
+     * - zipWith(defFlux, combinador):
+     *   Similar a `zip`, pero se invoca sobre una instancia de `Flux`, combinándolo
+     *   con otro `Flux` pasado como argumento.
+     *
+     * @return un Flux que emite combinaciones de los valores de los flujos dados.
+     */
     public Flux<String> fluxZipWith(){
         Flux<String> abcFlux = Flux.just("A","B","C");
 
